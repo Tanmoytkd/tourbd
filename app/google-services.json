@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "992212494030",
+    "firebase_url": "https://tourbd-7c475.firebaseio.com",
+    "project_id": "tourbd-7c475",
+    "storage_bucket": "tourbd-7c475.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992212494030:android:211bdfd27b6bb3e9",
+        "android_client_info": {
+          "package_name": "com.example.tourbd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992212494030-q1svq55r9o0hmm601q9t4i1fsp87e11o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tourbd",
+            "certificate_hash": "f9e4c5d0a2a10686a804bd6167f37702283660c5"
+          }
+        },
+        {
+          "client_id": "992212494030-kolqjctatu4ivqvu6p8slbt9o4164ls7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOvrC0tluphae45wipkXLDAZZtIIo8COo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992212494030-kolqjctatu4ivqvu6p8slbt9o4164ls7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
