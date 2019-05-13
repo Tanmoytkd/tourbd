@@ -1,5 +1,7 @@
 package com.example.tourbd;
 
+import android.net.Uri;
+
 public class Post {
     String postText;
     String postImageUrl;
