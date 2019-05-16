@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     public EditText emailId, passwd;
     Button btnSignUp;
     TextView signIn;
@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(MainActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
-                    Intent I = new Intent(MainActivity.this, UserActivity.class);
+                    Toast.makeText(RegisterActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
+                    Intent I = new Intent(RegisterActivity.this, UserActivityNew.class);
                     startActivity(I);
                     finish();
                 } else {
-                    Toast.makeText(MainActivity.this, "Login to continue", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Login to continue", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -81,14 +81,14 @@ public class MainActivity extends AppCompatActivity {
                     passwd.setError("Set your password");
                     passwd.requestFocus();
                 } else if (emailID.isEmpty() && paswd.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
                 } else if (!(emailID.isEmpty() && paswd.isEmpty())) {
-                    firebaseAuth.createUserWithEmailAndPassword(emailID, paswd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    firebaseAuth.createUserWithEmailAndPassword(emailID, paswd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (!task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this.getApplicationContext(),
+                                Toast.makeText(RegisterActivity.this.getApplicationContext(),
                                         "SignUp unsuccessful: " + task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
@@ -96,19 +96,19 @@ public class MainActivity extends AppCompatActivity {
                                     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
                                     db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("isOwner").setValue("alkfjasklfj");
                                 }
-                                startActivity(new Intent(MainActivity.this, UserActivity.class));
+                                startActivity(new Intent(RegisterActivity.this, UserActivityNew.class));
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent I = new Intent(MainActivity.this, ActivityLogin.class);
+                Intent I = new Intent(RegisterActivity.this, ActivityLogin.class);
                 startActivity(I);
                 finish();
             }

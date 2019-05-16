@@ -12,10 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".AddPost"></activity>
+        <activity
+            android:name=".UserActivityNew"
+            android:label="@string/title_activity_user_new"
+            android:theme="@style/NoActionBar"></activity>
+        <activity android:name=".AddPost" />
         <activity android:name=".UserActivity" />
         <activity android:name=".ActivityLogin" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

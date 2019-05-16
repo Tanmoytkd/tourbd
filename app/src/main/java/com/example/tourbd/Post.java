@@ -1,10 +1,9 @@
 package com.example.tourbd;
 
-import android.net.Uri;
-
 public class Post {
     String postText;
     String postImageUrl;
+    String postDetails;
 
     public Post() {
     }
@@ -13,9 +12,18 @@ public class Post {
         this.postText = postText;
     }
 
-    public Post(String postText, String postImageUrl) {
+    public Post(String postText, String postImageUrl, String postDetails) {
         this.postText = postText;
         this.postImageUrl = postImageUrl;
+        this.postDetails = postDetails;
+    }
+
+    public String getPostDetails() {
+        return postDetails;
+    }
+
+    public void setPostDetails(String postDetails) {
+        this.postDetails = postDetails;
     }
 
     public String getPostText() {

@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+        tools:srcCompat="@drawable/placeholder_place" />
 
     <TextView
         android:id="@+id/postText"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintEnd_toEndOf="@+id/postImage"
         app:layout_constraintStart_toStartOf="@+id/postImage"
         app:layout_constraintTop_toBottomOf="@+id/postImage" />
@@ -33,11 +34,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="#ffffee"
+        android:background="@color/colorPrimary"
         android:padding="0dp"
-        android:text="Join/Leave"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
+        android:text="Details"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/postImage"
         app:layout_constraintStart_toStartOf="@+id/postImage"

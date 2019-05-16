@@ -3,9 +3,13 @@ package com.example.tourbd;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,8 +29,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class AddPost extends AppCompatActivity {
+public class AddPost extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
     EditText statusText;
+    EditText statusDescription;
     Button btnAddImage;
     Button btnPost;
     DatabaseReference db;
@@ -41,6 +47,7 @@ public class AddPost extends AppCompatActivity {
         setContentView(R.layout.activity_add_post);
 
         statusText = findViewById(R.id.statusText);
+        statusDescription = findViewById(R.id.statusDescription);
         btnAddImage = findViewById(R.id.btnAddImage);
         btnPost = findViewById(R.id.btnPost);
 
@@ -61,6 +68,7 @@ public class AddPost extends AppCompatActivity {
 
         btnPost.setOnClickListener((v)->{
             String txt = statusText.getText().toString();
+            String description = statusDescription.getText().toString();
 
             if(file!=null) {
                 StorageReference riversRef = mStorageRef.child("images/"+file.getLastPathSegment());
@@ -86,7 +94,9 @@ public class AddPost extends AppCompatActivity {
                                 Log.e("TKD", uri.toString());
 
                                 String key = db.child("posts").child(uid).push().getKey();
+                                assert key != null;
                                 db.child("posts").child(uid).child(key).child("postImageUrl").setValue(uri.toString());
+                                db.child("posts").child(uid).child(key).child("postDetails").setValue(description);
                                 db.child("posts").child(uid).child(key).child("postText").setValue(txt).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -105,7 +115,7 @@ public class AddPost extends AppCompatActivity {
 
 
 
-                // Register observers to listen for when the download is done or if it fails
+                // Register observers to listen for when the add_icon is done or if it fails
 //                uploadTask.addOnFailureListener(new OnFailureListener() {
 //                    @Override
 //                    public void onFailure(@NonNull Exception exception) {
@@ -151,10 +161,46 @@ public class AddPost extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (requestCode == PICK_IMAGE) {
             file = data.getData();
         }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_about_us) {
+            // Handle the camera action
+        } else if (id == R.id.nav_share_app) {
+
+        } else if (id == R.id.nav_rate_us) {
+
+        } else if (id == R.id.nav_profile) {
+
+        } else if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent I=new Intent(AddPost.this,ActivityLogin.class);
+            startActivity(I);
+            finish();
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

@@ -30,6 +30,9 @@ public class UserActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        startActivity(new Intent(UserActivity.this, UserActivityNew.class));
+        finish();
+
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
         super.onCreate(savedInstanceState);
@@ -40,7 +43,6 @@ public class UserActivity extends AppCompatActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 FirebaseAuth.getInstance().signOut();
                 Intent I=new Intent(UserActivity.this,ActivityLogin.class);
                 startActivity(I);

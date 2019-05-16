@@ -32,12 +32,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             btnJoinOrLeave = itemView.findViewById(R.id.btnJoinOrLeave);
         }
 
-        public void bind(Post post) {
+        void bind(Post post) {
             postText.setText(post.postText);
             if (post.postImageUrl != null && !post.postImageUrl.equals("")) {
                 Glide.with(context).load(post.postImageUrl).into(postImage);
             } else {
-                Glide.with(context).load("https://k6u8v6y8.stackpathcdn.com/blog/wp-content/uploads/2016/03/Ravangla.jpg").into(postImage);
+                Glide.with(context)
+                        .load("https://k6u8v6y8.stackpathcdn.com/blog/wp-content/uploads/2016/03/Ravangla.jpg")
+                        .placeholder(R.drawable.placeholder_place)
+                        .into(postImage);
             }
         }
     }
