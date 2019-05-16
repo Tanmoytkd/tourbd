@@ -36,7 +36,7 @@
             android:id="@+id/ownerSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restaurant Owner  " />
+            android:text="Event Owner  " />
     </LinearLayout>
 
     <Button
