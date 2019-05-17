@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -37,11 +36,14 @@ public class UserActivityNew extends AppCompatActivity
     Button btnAddPackage;
     RecyclerView postsList;
     ArrayList<Post> posts=new ArrayList<>();
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        startActivity(new Intent(UserActivityNew.this, UserActivityBottomNav.class));
+        finish();
+
         setContentView(R.layout.activity_user_new);
         Toolbar toolbar = findViewById(R.id.toolbar);
         floatingBtnAddPackage = findViewById(R.id.floatingBtnAddPackage);
@@ -55,7 +57,7 @@ public class UserActivityNew extends AppCompatActivity
 //            }
 //        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.left_nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -94,7 +96,10 @@ public class UserActivityNew extends AppCompatActivity
         db.child("users").child(uid).child("isOwner").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) btnAddPackage.setVisibility(View.GONE);
+                if(!dataSnapshot.exists()) {
+                    btnAddPackage.setVisibility(View.GONE);
+                    floatingBtnAddPackage.hide();
+                }
             }
 
             @Override

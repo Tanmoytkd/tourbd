@@ -13,9 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".UserActivityBottomNav"
+            android:label="@string/title_activity_user_bottom_nav"></activity>
+        <activity
             android:name=".UserActivityNew"
             android:label="@string/title_activity_user_new"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity android:name=".AddPost" />
         <activity android:name=".UserActivity" />
         <activity android:name=".ActivityLogin" />

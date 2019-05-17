@@ -95,9 +95,9 @@ public class AddPost extends AppCompatActivity
 
                                 String key = db.child("posts").child(uid).push().getKey();
                                 assert key != null;
-                                db.child("posts").child(uid).child(key).child("postImageUrl").setValue(uri.toString());
-                                db.child("posts").child(uid).child(key).child("postDetails").setValue(description);
-                                db.child("posts").child(uid).child(key).child("postText").setValue(txt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                Post post = new Post(txt, uri.toString(), description, uid, key);
+
+                                db.child("posts").child(uid).child(key).setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         finish();
@@ -112,45 +112,10 @@ public class AddPost extends AppCompatActivity
                         });
                     }
                 });
-
-
-
-                // Register observers to listen for when the add_icon is done or if it fails
-//                uploadTask.addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        // Handle unsuccessful uploads
-//                        Log.e("TKD", exception.toString());
-//                        exception.printStackTrace();
-//                    }
-//                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-//                        // ...
-//                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                            @Override
-//                            public void onSuccess(Uri uri) {
-//
-////                                String key = db.child("posts").child(uid).push().getKey();
-////                                db.child("posts").child(uid).child(key).child("postImageUrl").setValue(uri);
-////                                db.child("posts").child(uid).child(key).child("postText").setValue(txt).addOnSuccessListener(new OnSuccessListener<Void>() {
-////                                    @Override
-////                                    public void onSuccess(Void aVoid) {
-////                                        finish();
-////                                    }
-////                                });
-//
-//                                Log.e("TKD", uri.toString());
-//                            }
-//                        });
-//                    }
-//                });
-
-
             } else {
                 String key = db.child("posts").child(uid).push().getKey();
-                db.child("posts").child(uid).child(key).child("postText").setValue(txt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                Post post = new Post(txt, null, description, uid, key);
+                db.child("posts").child(uid).child(key).setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         finish();

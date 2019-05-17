@@ -1,9 +1,16 @@
 package com.example.tourbd;
 
-public class Post {
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class Post implements Serializable {
     String postText;
     String postImageUrl;
     String postDetails;
+    String ownerUid;
+    String postKey;
 
     public Post() {
     }
@@ -16,6 +23,30 @@ public class Post {
         this.postText = postText;
         this.postImageUrl = postImageUrl;
         this.postDetails = postDetails;
+    }
+
+    public Post(String postText, String postImageUrl, String postDetails, String ownerUid, String postKey) {
+        this.postText = postText;
+        this.postImageUrl = postImageUrl;
+        this.postDetails = postDetails;
+        this.ownerUid = ownerUid;
+        this.postKey = postKey;
+    }
+
+    public String getOwnerUid() {
+        return ownerUid;
+    }
+
+    public void setOwnerUid(String ownerUid) {
+        this.ownerUid = ownerUid;
+    }
+
+    public String getPostKey() {
+        return postKey;
+    }
+
+    public void setPostKey(String postKey) {
+        this.postKey = postKey;
     }
 
     public String getPostDetails() {
