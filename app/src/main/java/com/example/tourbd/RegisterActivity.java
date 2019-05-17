@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
-    public EditText emailId, passwd;
+    public EditText emailId, passwd, name, phone;
     Button btnSignUp;
     TextView signIn;
     FirebaseAuth firebaseAuth;
@@ -58,11 +58,13 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth.addAuthStateListener(authStateListener);
 
         setContentView(R.layout.activity_main);
-
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        name = findViewById(R.id.ETname);
         emailId = findViewById(R.id.ETemail);
         passwd = findViewById(R.id.ETpassword);
         btnSignUp = findViewById(R.id.btnSignUp);
         signIn = findViewById(R.id.TVSignIn);
+        phone = findViewById(R.id.ETphone);
         ownerSwitch = findViewById(R.id.ownerSwitch);
         ownerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -76,6 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String emailID = emailId.getText().toString();
                 String paswd = passwd.getText().toString();
+                String username = name.getText().toString();
+                String phoneNumber = phone.getText().toString();
                 if (emailID.isEmpty()) {
                     emailId.setError("Provide your Email first!");
                     emailId.requestFocus();
@@ -95,9 +99,10 @@ public class RegisterActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 if(owner) {
-                                    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
                                     db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("isOwner").setValue("alkfjasklfj");
                                 }
+                                db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("name").setValue(username);
+                                db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("phone").setValue(phoneNumber);
                                 startActivity(new Intent(RegisterActivity.this, UserActivityBottomNav.class));
                                 finish();
                             }

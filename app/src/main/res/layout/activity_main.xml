@@ -8,6 +8,24 @@
     tools:context="com.example.tourbd.RegisterActivity">
 
     <EditText
+        android:id="@+id/ETname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Full Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/ETphone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:ems="10"
+        android:hint="Phone Numbe"
+        android:inputType="phone" />
+
+    <EditText
         android:id="@+id/ETemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
