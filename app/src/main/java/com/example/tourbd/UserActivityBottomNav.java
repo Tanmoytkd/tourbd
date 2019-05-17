@@ -23,6 +23,7 @@ public class UserActivityBottomNav extends AppCompatActivity
     Fragment fragment = null;
     FrameLayout fragmentContainer;
     Fragment lastFragment = null;
+    Boolean isDetails = false;
 
     NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -56,6 +57,9 @@ public class UserActivityBottomNav extends AppCompatActivity
         if (fragment != null) {
             if(!(fragment instanceof PostDetailsFragment)) {
                 lastFragment = fragment;
+                isDetails = false;
+            } else {
+                isDetails = true;
             }
 
             getSupportFragmentManager()
@@ -79,8 +83,11 @@ public class UserActivityBottomNav extends AppCompatActivity
             if(lastFragment instanceof MyEventsFragment) {
                 Log.e("TKD", "LOADING MY EVENTS");
                 loadFragment(new MyEventsFragment());
-            } else {
+            } else if(isDetails){
                 loadFragment(new HomeFragment());
+            } else {
+                Log.i("UserActivityBottomNav", "nothing on backstack, calling super");
+                super.onBackPressed();
             }
 
             lastFragment = null;
