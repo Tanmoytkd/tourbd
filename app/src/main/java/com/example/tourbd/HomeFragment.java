@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    FloatingActionButton floatingBtnAddPackage;
+
     FirebaseAuth firebaseAuth;
     DatabaseReference db;
     RecyclerView postsList;
@@ -79,36 +79,13 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_home, null);
 
-        floatingBtnAddPackage = v.findViewById(R.id.floatingBtnAddPackage);
 
         ///////////////////////////////////////////
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
         postsList = v.findViewById(R.id.postsList);
 
-        floatingBtnAddPackage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, AddPost.class);
-                startActivity(i);
-            }
-        });
-
         String uid = FirebaseAuth.getInstance().getCurrentUser()==null ? "": FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        db.child("users").child(uid).child("isOwner").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) {
-                    floatingBtnAddPackage.hide();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         return v;
     }

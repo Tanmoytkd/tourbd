@@ -1,6 +1,7 @@
 package com.example.tourbd;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -17,10 +18,11 @@ import android.widget.FrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class UserActivityBottomNav extends AppCompatActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+        implements BottomNavigationView.OnNavigationItemSelectedListener, PostDetailsFragment.OnFragmentInteractionListener {
 
     Fragment fragment = null;
     FrameLayout fragmentContainer;
+    Fragment lastFragment = null;
 
     NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -49,9 +51,13 @@ public class UserActivityBottomNav extends AppCompatActivity
         }
     };
 
-    private boolean loadFragment(Fragment fragment) {
+    boolean loadFragment(Fragment fragment) {
         //switching fragment
         if (fragment != null) {
+            if(!(fragment instanceof PostDetailsFragment)) {
+                lastFragment = fragment;
+            }
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, fragment)
@@ -67,6 +73,17 @@ public class UserActivityBottomNav extends AppCompatActivity
         if (fm.getBackStackEntryCount() > 0) {
             Log.i("UserActivityBottomNav", "popping backstack");
             fm.popBackStack();
+        } else if(lastFragment!=null) {
+            Log.e( "TKD", "loading new stuff");
+
+            if(lastFragment instanceof MyEventsFragment) {
+                Log.e("TKD", "LOADING MY EVENTS");
+                loadFragment(new MyEventsFragment());
+            } else {
+                loadFragment(new HomeFragment());
+            }
+
+            lastFragment = null;
         } else {
             Log.i("UserActivityBottomNav", "nothing on backstack, calling super");
             super.onBackPressed();
@@ -111,5 +128,10 @@ public class UserActivityBottomNav extends AppCompatActivity
         }
 
         return loadFragment(fragment);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

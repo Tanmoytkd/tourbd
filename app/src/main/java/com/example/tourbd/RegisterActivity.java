@@ -34,14 +34,31 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Toast.makeText(RegisterActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
+                    Intent I = new Intent(RegisterActivity.this, UserActivityBottomNav.class);
+                    startActivity(I);
+                    finish();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Login to continue", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        firebaseAuth.addAuthStateListener(authStateListener);
+
+        setContentView(R.layout.activity_main);
+
         emailId = findViewById(R.id.ETemail);
         passwd = findViewById(R.id.ETpassword);
         btnSignUp = findViewById(R.id.btnSignUp);
@@ -53,21 +70,6 @@ public class RegisterActivity extends AppCompatActivity {
                 owner = isChecked;
             }
         });
-
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Toast.makeText(RegisterActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
-                    Intent I = new Intent(RegisterActivity.this, UserActivityNew.class);
-                    startActivity(I);
-                    finish();
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Login to continue", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +98,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
                                     db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("isOwner").setValue("alkfjasklfj");
                                 }
-                                startActivity(new Intent(RegisterActivity.this, UserActivityNew.class));
+                                startActivity(new Intent(RegisterActivity.this, UserActivityBottomNav.class));
+                                finish();
                             }
                         }
                     });

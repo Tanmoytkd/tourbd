@@ -26,25 +26,30 @@ public class ActivityLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
         firebaseAuth = FirebaseAuth.getInstance();
-        loginEmailId = findViewById(R.id.loginEmail);
-        logInpasswd = findViewById(R.id.loginpaswd);
-        btnLogIn = findViewById(R.id.btnLogIn);
-        signup = findViewById(R.id.TVSignIn);
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Toast.makeText(ActivityLogin.this, "User logged in ", Toast.LENGTH_SHORT).show();
-                    Intent I = new Intent(ActivityLogin.this, UserActivityNew.class);
+                    Intent I = new Intent(ActivityLogin.this, UserActivityBottomNav.class);
                     startActivity(I);
+                    finish();
                 } else {
                     Toast.makeText(ActivityLogin.this, "Login to continue", Toast.LENGTH_SHORT).show();
                 }
             }
         };
+        firebaseAuth.addAuthStateListener(authStateListener);
+
+        setContentView(R.layout.activity_login);
+        loginEmailId = findViewById(R.id.loginEmail);
+        logInpasswd = findViewById(R.id.loginpaswd);
+        btnLogIn = findViewById(R.id.btnLogIn);
+        signup = findViewById(R.id.TVSignIn);
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +78,7 @@ public class ActivityLogin extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(ActivityLogin.this, "Not sucessfull", Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(ActivityLogin.this, UserActivityNew.class));
+                                startActivity(new Intent(ActivityLogin.this, UserActivityBottomNav.class));
                                 finish();
                             }
                         }
@@ -89,6 +94,5 @@ public class ActivityLogin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
     }
 }
