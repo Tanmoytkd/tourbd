@@ -80,17 +80,15 @@ public class UserActivityBottomNav extends AppCompatActivity
         } else if(lastFragment!=null) {
             Log.e( "TKD", "loading new stuff");
 
-            if(lastFragment instanceof MyEventsFragment) {
+            if(lastFragment instanceof MyEventsFragment && isDetails) {
                 Log.e("TKD", "LOADING MY EVENTS");
                 loadFragment(new MyEventsFragment());
-            } else if(isDetails){
+            } else if(lastFragment instanceof HomeFragment && isDetails){
                 loadFragment(new HomeFragment());
             } else {
                 Log.i("UserActivityBottomNav", "nothing on backstack, calling super");
                 super.onBackPressed();
             }
-
-            lastFragment = null;
         } else {
             Log.i("UserActivityBottomNav", "nothing on backstack, calling super");
             super.onBackPressed();
