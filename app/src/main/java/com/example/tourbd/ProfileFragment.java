@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
@@ -29,6 +31,8 @@ public class ProfileFragment extends Fragment {
     String uid = FirebaseAuth.getInstance().getUid();
     Button btnLogout;
     Context context;
+    RecyclerView goingList;
+    ArrayList<Post> posts = new ArrayList<>();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -37,7 +41,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -48,6 +51,37 @@ public class ProfileFragment extends Fragment {
         email = v.findViewById(R.id.email);
         phone = v.findViewById(R.id.phone);
         btnLogout = v.findViewById(R.id.btnLogout);
+        goingList = v.findViewById(R.id.goingList);
+
+        db.child("posts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot eachUserPostsSnapshot: dataSnapshot.getChildren()) {
+                    for(DataSnapshot eachPost: eachUserPostsSnapshot.getChildren()) {
+                        Post post = eachPost.getValue(Post.class);
+                        db.child("members").child(post.ownerUid).child(post.postKey).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()) {
+                                    posts.add(post);
+                                }
+                                goingList.setAdapter(new PostAdapter(context, posts));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         btnLogout.setOnClickListener((view)->{
             FirebaseAuth.getInstance().signOut();
@@ -55,6 +89,8 @@ public class ProfileFragment extends Fragment {
             startActivity(I);
             Objects.requireNonNull(getActivity()).finish();
         });
+
+//        db.child("posts")
 
         db.child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override

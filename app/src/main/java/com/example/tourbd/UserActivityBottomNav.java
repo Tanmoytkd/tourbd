@@ -87,6 +87,8 @@ public class UserActivityBottomNav extends AppCompatActivity
                 loadFragment(new HomeFragment());
             } else if(lastFragment instanceof SearchFragment && isDetails) {
                 loadFragment(new SearchFragment());
+            } else if(lastFragment instanceof ProfileFragment) {
+                loadFragment(new ProfileFragment());
             } else {
                 Log.i("UserActivityBottomNav", "nothing on backstack, calling super");
                 super.onBackPressed();
