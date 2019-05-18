@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         ImageView postImage;
         Button btnDetails;
         ImageButton btnDelete;
+        Button btnGoing, btnNotGoing;
         View v;
 
 
@@ -46,6 +48,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             postImage = itemView.findViewById(R.id.postImage);
             btnDetails = itemView.findViewById(R.id.btnDetails);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+            btnGoing = itemView.findViewById(R.id.btnGoing);
+            btnNotGoing = itemView.findViewById(R.id.btnNotGoing);
         }
 
         void bind(Post post) {
@@ -98,6 +102,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
     private Context context;
     private ArrayList<Post> posts;
+    String searchQuery="";
 
     public PostAdapter(Context context, ArrayList<Post> posts) {
         this.context = context;
@@ -105,6 +110,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
         uid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+    }
+
+    public PostAdapter(Context context, ArrayList<Post> posts, String searchQuery) {
+        this.context = context;
+        this.searchQuery = searchQuery;
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance().getReference();
+        uid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        ArrayList<Post> tempPosts = new ArrayList<>();
+        for(Post post: posts) {
+            if(post.postText.toLowerCase().contains(searchQuery.toLowerCase()) /* || post.postDetails.toLowerCase().contains(searchQuery.toLowerCase()) */ ) {
+                Log.e("TKD", "QUERY: " + searchQuery);
+                Log.e("TKD", "EVENT TITLE: " + post.postText);
+                Log.e("TKD", "Event Details: " + post.postDetails);
+                tempPosts.add(post);
+            }
+        }
+        this.posts = tempPosts;
+
+        Log.e("TKD", "QUERY: " + searchQuery);
     }
 
     @NonNull

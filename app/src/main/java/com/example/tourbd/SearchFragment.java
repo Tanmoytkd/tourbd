@@ -28,10 +28,10 @@ import java.util.Objects;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
+ * {@link SearchFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class HomeFragment extends Fragment {
+public class SearchFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     DatabaseReference db;
     RecyclerView postsList;
@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     String searchQuery="";
     private OnFragmentInteractionListener mListener;
 
-    public HomeFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 

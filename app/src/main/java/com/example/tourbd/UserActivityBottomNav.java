@@ -18,7 +18,7 @@ import android.widget.FrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class UserActivityBottomNav extends AppCompatActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener, PostDetailsFragment.OnFragmentInteractionListener {
+        implements BottomNavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, PostDetailsFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
     Fragment fragment = null;
     FrameLayout fragmentContainer;
@@ -85,6 +85,8 @@ public class UserActivityBottomNav extends AppCompatActivity
                 loadFragment(new MyEventsFragment());
             } else if(lastFragment instanceof HomeFragment && isDetails){
                 loadFragment(new HomeFragment());
+            } else if(lastFragment instanceof SearchFragment && isDetails) {
+                loadFragment(new SearchFragment());
             } else {
                 Log.i("UserActivityBottomNav", "nothing on backstack, calling super");
                 super.onBackPressed();
@@ -130,6 +132,7 @@ public class UserActivityBottomNav extends AppCompatActivity
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();
                 break;
+
         }
 
         return loadFragment(fragment);
