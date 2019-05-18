@@ -110,8 +110,19 @@ public class UserActivityBottomNav extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
 
-        //loading the default fragment
-        loadFragment(new HomeFragment());
+        if(lastFragment==null || lastFragment instanceof HomeFragment) {
+            //loading the default fragment
+            loadFragment(new HomeFragment());
+        } else if(lastFragment instanceof MyEventsFragment) {
+            loadFragment(new MyEventsFragment());
+        } else if(lastFragment instanceof NotificationsFragment) {
+            loadFragment(new NotificationsFragment());
+        } else if(lastFragment instanceof ProfileFragment) {
+            loadFragment(new ProfileFragment());
+        } else {
+            loadFragment(new HomeFragment());
+        }
+
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class PostDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    ImageButton btnDelete;
     ImageView postImage;
     TextView postText;
     TextView postDetails;
@@ -60,8 +62,18 @@ public class PostDetailsFragment extends Fragment {
         post = (Post) Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getSerializable("post");
         btnGoing = v.findViewById(R.id.btnGoing);
         btnNotGoing = v.findViewById(R.id.btnNotGoing);
+        btnDelete = v.findViewById(R.id.btnDelete);
         memberList = v.findViewById(R.id.membersList);
         memberList.setLayoutManager(new LinearLayoutManager(context));
+
+        if(!post.ownerUid.equals(uid)) {
+            btnDelete.setVisibility(View.GONE);
+        }
+
+        btnDelete.setOnClickListener((view)->{
+            db.child("posts").child(post.ownerUid).child(post.postKey).setValue(null);
+            ((UserActivityBottomNav) context).onBackPressed();
+        });
 
         db.child("members").child(post.ownerUid).child(post.postKey).addValueEventListener(new ValueEventListener() {
             @Override

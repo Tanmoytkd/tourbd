@@ -59,8 +59,9 @@ public class ProfileFragment extends Fragment {
         db.child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                name.setText(dataSnapshot.child("nameTxt").getValue(String.class));
-                phone.setText(dataSnapshot.child("phoneTxt").getValue(String.class));
+                User user = dataSnapshot.getValue(User.class);
+                name.setText(user.name);
+                phone.setText(user.phone);
                 email.setText(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail());
             }
 
