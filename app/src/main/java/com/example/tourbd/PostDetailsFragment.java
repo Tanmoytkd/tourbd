@@ -3,19 +3,27 @@ package com.example.tourbd;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
 import java.util.Objects;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -33,21 +41,70 @@ public class PostDetailsFragment extends Fragment {
     ImageView postImage;
     TextView postText;
     TextView postDetails;
+    RecyclerView memberList;
     Post post;
     Context context;
+    Button btnGoing, btnNotGoing;
+    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    String uid = firebaseAuth.getUid();
+    ArrayList<User> members;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_post_details, null);
+        View v = inflater.inflate(R.layout.fragment_post_details, null);
         postImage = v.findViewById(R.id.postImage);
         postText = v.findViewById(R.id.postText);
         postDetails = v.findViewById(R.id.postDetails);
         post = (Post) Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getSerializable("post");
+        btnGoing = v.findViewById(R.id.btnGoing);
+        btnNotGoing = v.findViewById(R.id.btnNotGoing);
+        memberList = v.findViewById(R.id.membersList);
+        memberList.setLayoutManager(new LinearLayoutManager(context));
+
+        db.child("members").child(post.ownerUid).child(post.postKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                members = new ArrayList<>();
+                for (DataSnapshot userData : dataSnapshot.getChildren()) {
+                    User user = userData.getValue(User.class);
+                    members.add(user);
+                }
+                Log.e("TKD", String.valueOf(members.size()));
+                memberList.setAdapter(new MembersAdapter(context, post, members));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         Glide.with(context).load(post.postImageUrl).placeholder(R.drawable.placeholder_place).into(postImage);
         postText.setText(post.postText);
         postDetails.setText(post.postDetails);
+
+        btnGoing.setOnClickListener((view) -> {
+            db.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    db.child("members").child(post.ownerUid).child(post.postKey).child(uid).setValue(user);
+                    db.child("members").child(post.ownerUid).child(post.postKey).child(uid).child("paymentStatus").setValue("Pending");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        });
+
+        btnNotGoing.setOnClickListener((view) -> {
+            db.child("members").child(post.ownerUid).child(post.postKey).child(uid).setValue(null);
+        });
 
         return v;
     }

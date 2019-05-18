@@ -98,11 +98,13 @@ public class RegisterActivity extends AppCompatActivity {
                                         "SignUp unsuccessful: " + task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                if(owner) {
-                                    db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("isOwner").setValue("alkfjasklfj");
-                                }
-                                db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("name").setValue(username);
-                                db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("phone").setValue(phoneNumber);
+                                User user = new User(username, phoneNumber, owner, false, Objects.requireNonNull(task.getResult()).getUser().getUid(), emailID);
+                                db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).setValue(user);
+//                                if(owner) {
+//                                    db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("isOwner").setValue("alkfjasklfj");
+//                                }
+//                                db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("nameTxt").setValue(username);
+//                                db.child("users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("phoneTxt").setValue(phoneNumber);
                                 startActivity(new Intent(RegisterActivity.this, UserActivityBottomNav.class));
                                 finish();
                             }

@@ -35,7 +35,6 @@
         android:id="@+id/btnDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:padding="0dp"
@@ -45,55 +44,19 @@
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/postImage"
-        app:layout_constraintStart_toEndOf="@+id/btnGoing"
-        app:layout_constraintTop_toBottomOf="@+id/postDetails" />
-
-    <Button
-        android:id="@+id/btnGoing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:background="@drawable/buttonshape"
-        android:drawableLeft="@drawable/ic_icons_tickmark"
-        android:padding="0dp"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:text="Going"
-        android:textColor="@color/colorNavText"
-        android:textSize="18sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDetails"
-        app:layout_constraintStart_toEndOf="@+id/btnNotGoing"
-        app:layout_constraintTop_toTopOf="@+id/btnDetails"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btnNotGoing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:background="@drawable/buttonshape"
-        android:drawableLeft="@drawable/ic_icons_cross"
-        android:padding="0dp"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:text=" Not Going"
-        android:textColor="@color/colorNavText"
-        android:textSize="18sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDetails"
         app:layout_constraintStart_toEndOf="@+id/btnDelete"
-        app:layout_constraintTop_toTopOf="@+id/btnDetails"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/postDetails" />
 
     <ImageButton
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginEnd="4dp"
         android:adjustViewBounds="true"
         android:background="#ffffff"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/btnDetails"
+        app:layout_constraintEnd_toStartOf="@+id/btnDetails"
         app:layout_constraintStart_toStartOf="@+id/postImage"
         app:layout_constraintTop_toTopOf="@+id/btnDetails"
         app:srcCompat="@drawable/ic_trash_icon" />

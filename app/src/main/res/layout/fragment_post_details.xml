@@ -8,21 +8,73 @@
     android:layout_marginBottom="0dp"
     android:paddingBottom="8dp">
 
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:background="#ffffff"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_trash_icon" />
+
+    <Button
+        android:id="@+id/btnGoing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/buttonshape"
+        android:drawableLeft="@drawable/ic_icons_tickmark"
+        android:padding="0dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="4dp"
+        android:text="Going"
+        android:textColor="@color/colorNavText"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/btnNotGoing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnNotGoing"
+        app:layout_constraintTop_toTopOf="@+id/btnNotGoing" />
+
+    <Button
+        android:id="@+id/btnNotGoing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/buttonshape"
+        android:drawableLeft="@drawable/ic_icons_cross"
+        android:padding="0dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text=" Not Going"
+        android:textColor="@color/colorNavText"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDelete"
+        app:layout_constraintStart_toEndOf="@+id/btnDelete"
+        app:layout_constraintTop_toTopOf="@+id/btnDelete" />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnDelete"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            android:verticalScrollbarPosition="right">
 
             <ImageView
                 android:id="@+id/postImage"
@@ -62,33 +114,27 @@
                 app:layout_constraintStart_toStartOf="@+id/postImage"
                 app:layout_constraintTop_toBottomOf="@+id/postImage" />
 
-            <Button
-                android:id="@+id/btnDetails"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Joined Members:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/postImage"
+                app:layout_constraintTop_toBottomOf="@+id/postDetails" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/membersList"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/colorPrimary"
-                android:padding="0dp"
-                android:text="Details"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textSize="18sp"
-                android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="@+id/postImage"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/btnDelete"
-                app:layout_constraintTop_toBottomOf="@+id/postDetails" />
-
-            <ImageButton
-                android:id="@+id/btnDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:adjustViewBounds="true"
-                android:background="#ffffff"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/btnDetails"
                 app:layout_constraintStart_toStartOf="@+id/postImage"
-                app:layout_constraintTop_toTopOf="@+id/btnDetails"
-                app:srcCompat="@drawable/ic_trash_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

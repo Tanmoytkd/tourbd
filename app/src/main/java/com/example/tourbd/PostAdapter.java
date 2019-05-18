@@ -34,7 +34,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         ImageView postImage;
         Button btnDetails;
         ImageButton btnDelete;
-        Button btnGoing, btnNotGoing;
+
         View v;
 
 
@@ -48,8 +48,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             postImage = itemView.findViewById(R.id.postImage);
             btnDetails = itemView.findViewById(R.id.btnDetails);
             btnDelete = itemView.findViewById(R.id.btnDelete);
-            btnGoing = itemView.findViewById(R.id.btnGoing);
-            btnNotGoing = itemView.findViewById(R.id.btnNotGoing);
         }
 
         void bind(Post post) {
