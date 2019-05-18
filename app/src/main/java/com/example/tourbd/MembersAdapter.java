@@ -52,10 +52,21 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MemberHo
                 btnAccept.setVisibility(View.GONE);
             }
 
+            btnAccept.setOnClickListener((view)->{
+                db.child("members").child(post.ownerUid).child(post.postKey).child(member.uid).child("paymentStatus").setValue("Confirmed");
+            });
+
+            btnDelete.setOnClickListener((view)->{
+                db.child("members").child(post.ownerUid).child(post.postKey).child(member.uid).setValue(null);
+            });
+
             db.child("members").child(post.ownerUid).child(post.postKey).child(member.uid).child("paymentStatus").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                    if(dataSnapshot.exists() && !dataSnapshot.getValue(String.class).toLowerCase().equals("pending")) {
+                        btnDelete.setVisibility(View.GONE);
+                        btnAccept.setVisibility(View.GONE);
+                    }
                 }
 
                 @Override
