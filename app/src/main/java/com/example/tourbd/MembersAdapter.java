@@ -54,10 +54,16 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MemberHo
 
             btnAccept.setOnClickListener((view)->{
                 db.child("members").child(post.ownerUid).child(post.postKey).child(member.uid).child("paymentStatus").setValue("Confirmed");
+                String key = db.child("notifications").child(member.uid).push().getKey();
+                Notification notification = new Notification("Your request to join the event '" + post.postText + "' has been confirmed", key);
+                db.child("notifications").child(member.uid).child(key).setValue(notification);
             });
 
             btnDelete.setOnClickListener((view)->{
                 db.child("members").child(post.ownerUid).child(post.postKey).child(member.uid).setValue(null);
+                String key = db.child("notifications").child(member.uid).push().getKey();
+                Notification notification = new Notification("Your request to join the event '" + post.postText + "' has been Rejected", key);
+                db.child("notifications").child(member.uid).child(key).setValue(notification);
             });
 
             db.child("members").child(post.ownerUid).child(post.postKey).child(member.uid).child("paymentStatus").addValueEventListener(new ValueEventListener() {

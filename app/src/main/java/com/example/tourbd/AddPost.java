@@ -214,8 +214,6 @@ public class AddPost extends AppCompatActivity
 
         } else if (id == R.id.nav_rate_us) {
 
-        } else if (id == R.id.nav_profile) {
-
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             Intent I = new Intent(AddPost.this, ActivityLogin.class);

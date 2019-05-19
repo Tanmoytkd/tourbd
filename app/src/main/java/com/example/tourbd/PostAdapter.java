@@ -61,10 +61,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
                         .into(postImage);
             }
 
-            db.child("users").child(uid).child("isAdmin").addValueEventListener(new ValueEventListener() {
+            db.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    assert user != null;
+                    if(user.isAdmin) {
+                        Log.e("TKD", "You are an admin");
                         btnDelete.setVisibility(View.VISIBLE);
                         btnDelete.setOnClickListener((v)->{
                             db.child("posts").child(post.ownerUid).child(post.postKey).setValue(null);
@@ -81,6 +84,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             });
 
             if(uid.equals(post.ownerUid)) {
+                Log.e("TKD", "you are the owner");
                 btnDelete.setVisibility(View.VISIBLE);
                 btnDelete.setOnClickListener((v)->{
                     db.child("posts").child(post.ownerUid).child(post.postKey).setValue(null);
