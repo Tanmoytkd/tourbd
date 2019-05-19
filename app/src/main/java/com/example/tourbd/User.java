@@ -5,9 +5,10 @@ import java.io.Serializable;
 public class User implements Serializable {
     String name, phone;
     boolean isOwner, isAdmin;
-    String uid, email;
+    String uid, email, propic;
 
     public User() {
+        propic = "https://firebasestorage.googleapis.com/v0/b/tourbd-7c475.appspot.com/o/ProfilePlaceholder.png?alt=media&token=297c0995-ca58-414e-a95a-97d649155cbb";
     }
 
     public User(String name, String phone, boolean isOwner, boolean isAdmin, String uid, String email) {
@@ -17,6 +18,24 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
         this.uid = uid;
         this.email = email;
+    }
+
+    public User(String name, String phone, boolean isOwner, boolean isAdmin, String uid, String email, String propic) {
+        this.name = name;
+        this.phone = phone;
+        this.isOwner = isOwner;
+        this.isAdmin = isAdmin;
+        this.uid = uid;
+        this.email = email;
+        this.propic = propic;
+    }
+
+    public String getPropic() {
+        return propic;
+    }
+
+    public void setPropic(String propic) {
+        this.propic = propic;
     }
 
     public String getName() {

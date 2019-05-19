@@ -9,25 +9,21 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
         android:hint="Name"
         android:textColor="@color/colorNavText"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/propic"
+        app:layout_constraintTop_toTopOf="@+id/propic" />
 
     <TextView
         android:id="@+id/phone"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:hint="phone"
         android:textColor="@color/colorNavText"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
@@ -44,33 +40,31 @@
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/buttonshape"
-        android:drawableTop="@android:drawable/ic_lock_power_off"
-        android:padding="16dp"
-        android:text=" Logout"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/name" />
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/colorAccent"
+        android:padding="1dp"
+        android:text="Logout"
+        android:textColor="@color/colorNavIcon"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/propic"
+        app:layout_constraintStart_toStartOf="@+id/propic"
+        app:layout_constraintTop_toBottomOf="@+id/propic" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="Events I'm Joining"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textStyle="bold"
         android:textColor="@color/colorNavText"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogout" />
+        app:layout_constraintStart_toEndOf="@+id/btnLogout"
+        app:layout_constraintTop_toTopOf="@+id/btnLogout" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/goingList"
@@ -85,4 +79,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/propic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/profileplaceholder2"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

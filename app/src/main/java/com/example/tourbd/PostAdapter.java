@@ -53,7 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         void bind(Post post) {
             postText.setText(post.postText);
             if (post.postImageUrl != null && !post.postImageUrl.equals("")) {
-                Glide.with(context).load(post.postImageUrl).into(postImage);
+                Glide.with(context).load(post.postImageUrl).placeholder(R.drawable.placeholder_place).into(postImage);
             } else {
                 Glide.with(context)
                         .load("https://k6u8v6y8.stackpathcdn.com/blog/wp-content/uploads/2016/03/Ravangla.jpg")

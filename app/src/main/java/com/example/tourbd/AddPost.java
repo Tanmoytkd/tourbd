@@ -36,8 +36,8 @@ import java.util.Objects;
 
 public class AddPost extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1234;
-    private static final int MY_PERMISSIONS_REQUEST_INTERNET = 5678;
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1234;
+    public static final int MY_PERMISSIONS_REQUEST_INTERNET = 5678;
     EditText statusText;
     EditText statusDescription;
     Button btnAddImage;
