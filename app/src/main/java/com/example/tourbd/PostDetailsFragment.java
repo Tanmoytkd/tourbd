@@ -104,6 +104,11 @@ public class PostDetailsFragment extends Fragment {
                     User user = dataSnapshot.getValue(User.class);
                     db.child("members").child(post.ownerUid).child(post.postKey).child(uid).setValue(user);
                     db.child("members").child(post.ownerUid).child(post.postKey).child(uid).child("paymentStatus").setValue("Pending");
+
+                    assert user != null;
+                    String key = post.postKey+"~"+user.uid;
+                    Notification notification = new Notification(user.name + " wants to join the event '" + post.postText + "' ", key);
+                    db.child("notifications").child(post.ownerUid).child(key).setValue(notification);
                 }
 
                 @Override
@@ -115,7 +120,21 @@ public class PostDetailsFragment extends Fragment {
         });
 
         btnNotGoing.setOnClickListener((view) -> {
-            db.child("members").child(post.ownerUid).child(post.postKey).child(uid).setValue(null);
+            db.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    db.child("members").child(post.ownerUid).child(post.postKey).child(uid).setValue(null);
+                    assert user != null;
+                    String key = post.postKey+"~"+user.uid;
+                    db.child("notifications").child(post.ownerUid).child(key).setValue(null);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         });
 
         return v;

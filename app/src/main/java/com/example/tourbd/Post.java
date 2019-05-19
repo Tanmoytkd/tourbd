@@ -11,6 +11,7 @@ public class Post implements Serializable {
     String postDetails;
     String ownerUid;
     String postKey;
+    String paymentStatus;
 
     public Post() {
     }
@@ -23,6 +24,7 @@ public class Post implements Serializable {
         this.postText = postText;
         this.postImageUrl = postImageUrl;
         this.postDetails = postDetails;
+        this.paymentStatus = "Pending";
     }
 
     public Post(String postText, String postImageUrl, String postDetails, String ownerUid, String postKey) {
@@ -31,6 +33,24 @@ public class Post implements Serializable {
         this.postDetails = postDetails;
         this.ownerUid = ownerUid;
         this.postKey = postKey;
+        this.paymentStatus = "Pending";
+    }
+
+    public Post(String postText, String postImageUrl, String postDetails, String ownerUid, String postKey, String paymentStatus) {
+        this.postText = postText;
+        this.postImageUrl = postImageUrl;
+        this.postDetails = postDetails;
+        this.ownerUid = ownerUid;
+        this.postKey = postKey;
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
     public String getOwnerUid() {
