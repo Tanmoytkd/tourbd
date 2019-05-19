@@ -111,7 +111,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         this.posts = posts;
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
-        uid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        uid = firebaseAuth.getUid();
     }
 
     public PostAdapter(Context context, ArrayList<Post> posts, String searchQuery) {
@@ -119,7 +119,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         this.searchQuery = searchQuery;
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
-        uid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        uid = firebaseAuth.getUid();
 
         ArrayList<Post> tempPosts = new ArrayList<>();
         for(Post post: posts) {
