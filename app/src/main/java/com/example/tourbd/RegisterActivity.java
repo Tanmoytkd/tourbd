@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         };
         firebaseAuth.addAuthStateListener(authStateListener);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         name = findViewById(R.id.ETname);
         emailId = findViewById(R.id.ETemail);
