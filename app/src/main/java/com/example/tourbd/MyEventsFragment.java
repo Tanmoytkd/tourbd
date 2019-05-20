@@ -92,10 +92,11 @@ public class MyEventsFragment extends Fragment {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser() == null ? "" : FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        db.child("users").child(uid).child("isOwner").addValueEventListener(new ValueEventListener() {
+        db.child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
+                User user = dataSnapshot.getValue(User.class);
+                if(!user.isOwner) {
                     floatingBtnAddPackage.hide();
                 }
             }
@@ -105,6 +106,20 @@ public class MyEventsFragment extends Fragment {
 
             }
         });
+
+//        db.child("users").child(uid).child("isOwner").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (!dataSnapshot.exists()) {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         return v;
     }
