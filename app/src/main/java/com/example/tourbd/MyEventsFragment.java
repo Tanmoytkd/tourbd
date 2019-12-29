@@ -1,5 +1,6 @@
 package com.example.tourbd;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +9,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -95,9 +98,12 @@ public class MyEventsFragment extends Fragment {
         db.child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("TKD", "UID: "+uid);
                 User user = dataSnapshot.getValue(User.class);
-                if(!user.isOwner) {
+                if(!user.isOwner && !user.isAdmin) {
                     floatingBtnAddPackage.hide();
+                } else {
+                    floatingBtnAddPackage.show();
                 }
             }
 

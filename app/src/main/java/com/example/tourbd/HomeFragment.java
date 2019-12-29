@@ -1,5 +1,6 @@
 package com.example.tourbd;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,15 +42,34 @@ public class HomeFragment extends Fragment {
     Context context;
     String uid;
     String searchQuery="";
+    View v;
     private OnFragmentInteractionListener mListener;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+
+        searchView.clearFocus();
 
         if (firebaseAuth.getCurrentUser() == null) {
             getActivity().finish();
@@ -93,6 +114,9 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+//        hideKeyboard(getActivity());
+        hideKeyboardFrom(context, v);
     }
 
 
@@ -100,7 +124,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_search, null);
+        v = inflater.inflate(R.layout.fragment_search, null);
 
 
         ///////////////////////////////////////////
@@ -110,8 +134,11 @@ public class HomeFragment extends Fragment {
         searchView = v.findViewById(R.id.searchView);
         uid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
+        searchView.setFocusableInTouchMode(true);
+
 
         String uid = FirebaseAuth.getInstance().getCurrentUser() == null ? "" : FirebaseAuth.getInstance().getCurrentUser().getUid();
+        hideKeyboardFrom(context, v);
         return v;
     }
 

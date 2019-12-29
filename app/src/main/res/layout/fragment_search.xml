@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment">
+    tools:context=".SearchFragment"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:focusedByDefault="true">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,7 +22,8 @@
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="@+id/postsList"
             app:layout_constraintStart_toStartOf="@+id/postsList"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusedByDefault="false"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/postsList"
