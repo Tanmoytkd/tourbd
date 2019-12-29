@@ -93,11 +93,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
                 btnDelete.setVisibility(View.GONE);
             }
 
-            btnDetails.setOnClickListener((v)->{
-                UserActivityBottomNav activity = (UserActivityBottomNav) context;
-                activity.getIntent().putExtra("post", post);
-                activity.loadFragment(new PostDetailsFragment());
-            });
+            View.OnClickListener detailsOnclickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UserActivityBottomNav activity = (UserActivityBottomNav) context;
+                    activity.getIntent().putExtra("post", post);
+                    activity.loadFragment(new PostDetailsFragment());
+                }
+            };
+
+            btnDetails.setOnClickListener(detailsOnclickListener);
+            postText.setOnClickListener(detailsOnclickListener);
+            postImage.setOnClickListener(detailsOnclickListener);
         }
     }
 

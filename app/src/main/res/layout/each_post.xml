@@ -23,17 +23,17 @@
         android:id="@+id/postDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:layout_marginTop="4dp"
+        android:hint='Package Details'
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/postImage"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
         app:layout_constraintStart_toStartOf="@+id/postImage"
         app:layout_constraintTop_toBottomOf="@+id/postImage" />
 
     <Button
         android:id="@+id/btnDetails"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
@@ -42,23 +42,23 @@
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         android:textStyle="normal"
+
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/postImage"
-        app:layout_constraintStart_toEndOf="@+id/btnDelete"
         app:layout_constraintTop_toBottomOf="@+id/postDetails" />
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
         android:adjustViewBounds="true"
         android:background="#ffffff"
+        android:scaleType="centerInside"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDetails"
-        app:layout_constraintEnd_toStartOf="@+id/btnDetails"
-        app:layout_constraintStart_toStartOf="@+id/postImage"
-        app:layout_constraintTop_toTopOf="@+id/btnDetails"
+        app:layout_constraintEnd_toEndOf="@+id/postImage"
+        app:layout_constraintTop_toBottomOf="@+id/postImage"
         app:srcCompat="@drawable/ic_trash_icon" />
 
 </android.support.constraint.ConstraintLayout>
