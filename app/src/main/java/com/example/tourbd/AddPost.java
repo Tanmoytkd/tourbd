@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,10 +29,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Objects;
 
 public class AddPost extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -200,6 +196,7 @@ public class AddPost extends AppCompatActivity
         if (requestCode == PICK_IMAGE) {
             file = data.getData();
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

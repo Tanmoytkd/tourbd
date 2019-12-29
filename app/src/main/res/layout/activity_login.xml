@@ -35,7 +35,7 @@
         android:layout_margin="15dp"
         android:background="@color/colorPrimary"
         android:text="Login"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorNavText"
         android:textSize="18sp"
         android:textStyle="bold" />
 
