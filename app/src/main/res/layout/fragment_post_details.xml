@@ -10,15 +10,16 @@
 
     <ImageButton
         android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
         android:background="#ffffff"
+        android:scaleType="centerInside"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnNotGoing"
         app:srcCompat="@drawable/ic_trash_icon" />
 
     <Button
@@ -34,7 +35,7 @@
         android:paddingEnd="4dp"
         android:text="Going"
         android:textColor="@color/colorNavText"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/btnNotGoing"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +54,7 @@
         android:paddingEnd="8dp"
         android:text=" Not Going"
         android:textColor="@color/colorNavText"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnDelete" />
